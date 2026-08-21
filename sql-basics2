@@ -1,0 +1,174 @@
+#Inner join:
+select *from testproducts
+select *from categories;
+CREATE TABLE categories (
+  category_id SERIAL NOT NULL PRIMARY KEY,
+  category_name VARCHAR(255),
+  description VARCHAR(255)
+);
+INSERT INTO categories (category_name, description)
+VALUES
+  ('Beverages', 'Soft drinks, coffees, teas, beers, and ales'),
+  ('Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings'),
+  ('Confections', 'Desserts, candies, and sweet breads'),
+  ('Dairy Products', 'Cheeses'),
+  ('Grains/Cereals', 'Breads, crackers, pasta, and cereal'),
+  ('Meat/Poultry', 'Prepared meats'),
+  ('Produce', 'Dried fruit and bean curd'),
+  ('Seafood', 'Seaweed and fish');
+select *from products;
+select  testproduct_id, product_name from testproducts
+inner join categories on testproducts.category_id=categories.category_id;
+
+#left join:
+select testproduct_id, product_name from testproducts
+left join categories on testproducts.category_id=categories.category_id;
+
+#Right join:
+select testproduct_id, product_name from testproducts
+right join categories on testproducts.category_id=categories.category_id;
+
+#full join
+select testproduct_id, product_name from testproducts
+full join categories on testproducts.category_id=categories.category_id;
+
+#cross join
+select testproduct_id, product_name from testproducts
+cross join categories;
+
+#UNION
+select product_id, product_name
+from products
+union
+select testproduct_id, product_name
+from testproducts
+order by product_id;
+
+#UNION all
+select product_id, product_name
+from products
+union all
+select testproduct_id, product_name
+from testproducts
+order by product_id;
+
+
+
+create table fruits(name varchar(255));
+
+insert into fruits values('apple'),('apple'),('orange'),
+ ('grapes'),('grapes'),('watermelon');
+#Rank
+select *from fruits;
+select name, rank()over(order by name)from fruits;
+
+#dense_rank
+select *from fruits;
+select name, dense_rank()over(order by name)from fruits;
+
+
+CREATE TABLE ExamResult
+(StudentName VARCHAR(70),
+Subject 	VARCHAR(20),
+Marks   	INT
+);
+INSERT INTO ExamResult
+VALUES
+('Lily',
+'Maths',
+65
+);
+INSERT INTO ExamResult
+VALUES
+('Lily',
+'Science',
+80
+);
+INSERT INTO ExamResult
+VALUES
+('Lily',
+'english',
+70
+);
+INSERT INTO ExamResult
+VALUES
+('Isabella',
+'Maths',
+50
+);
+INSERT INTO ExamResult
+VALUES
+('Isabella',
+'Science',
+70
+);
+INSERT INTO ExamResult
+VALUES
+('Isabella',
+'english',
+90
+);
+INSERT INTO ExamResult
+VALUES
+('Olivia',
+'Maths',
+55
+);
+INSERT INTO ExamResult
+VALUES
+('Olivia',
+'Science',
+60
+);
+INSERT INTO ExamResult
+VALUES
+('Olivia',
+'english',
+89
+);
+
+SELECT Studentname,
+   	Subject,
+   	Marks,
+	   row_number()over(order by marks)from ExamResult;
+
+
+
+SELECT Studentname,
+   	Subject,
+   	Marks,
+	   rank()over(partition by subject order by marks DESC)
+	   from ExamResult;
+
+
+SELECT Studentname,
+   	Subject,
+   	Marks,
+	   dense_rank()over(partition by subject order by marks DESC)
+	   from ExamResult;
+
+
+SELECT Studentname,
+   	Subject,
+   	Marks,
+   	DENSE_RANK() OVER(PARTITION BY StudentName ORDER BY Subject ) Rank
+FROM ExamResult
+ORDER BY Studentname,
+     	Rank;
+
+
+
+SELECT StudentName,
+   	Subject,
+   	Marks,
+   	RANK() OVER(PARTITION BY StudentName ORDER BY Marks ) Rank
+FROM ExamResult
+ORDER BY Studentname,
+     	Rank;
+
+
+
+		 
+
+
+	   
