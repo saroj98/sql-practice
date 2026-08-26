@@ -1,0 +1,302 @@
+CREATE TABLE Employee (
+    empid INT,
+    name VARCHAR(100),
+    supervisor INT,
+    salary INT
+);
+
+
+CREATE TABLE Bonus (
+    empid INT,
+    bonus INT
+);
+
+INSERT INTO Employee (empid, name, supervisor, salary)
+VALUES
+(3, 'Brad', NULL, 4000),
+(1, 'John', 3, 1000),
+(2, 'Dan', 3, 2000),
+(4, 'Thomas', 3, 4000);
+
+INSERT INTO Bonus (empid, bonus)
+VALUES
+(2, 500),
+(4, 2000);
+
+--CREATE TABLE Employee (
+    empid INT,
+    name VARCHAR(100),
+    supervisor INT,
+    salary INT
+);
+
+
+CREATE TABLE Bonus (
+    empid INT,
+    bonus INT
+);
+
+INSERT INTO Employee (empid, name, supervisor, salary)
+VALUES
+(3, 'Brad', NULL, 4000),
+(1, 'John', 3, 1000),
+(2, 'Dan', 3, 2000),
+(4, 'Thomas', 3, 4000);
+
+INSERT INTO Bonus (empid, bonus)
+VALUES
+(2, 500),
+(4, 2000);
+
+-- Write an SQL query to report the name and bonus amount of each employee with a bonus less than 1000.
+-- Return the result table in any order.
+
+select e.name, b.bonus from Employee e 
+left join Bonus b  ON e.empid = b.empid where b.bonus < 1000 OR b.bonus IS NULL;
+
+
+
+create table customer(
+id int,
+name varchar(100),
+referee_id int);
+
+insert into customer (id, name, referee_id)
+values
+(1, 'Will', null),
+(2, 'Jane', null),
+(3, 'Alex', 2),
+(4, 'Bil', null),
+(5, 'Zack', 1),
+(6, 'Mark', 2);
+
+
+-- Write an SQL query to report the names of the customer that are not referred by the customer with id = 2.
+-- Return the result table in any order.
+
+select name from customer where referee_id <> 2 or referee_id is null;
+
+
+create table student (
+name varchar(100),
+class varchar(100)
+);
+insert into student(name, class)
+values
+('A', 'math'),
+('B', 'English'),
+('C', 'math'),
+('D', 'Computer'),
+('E', 'math'),
+('F', 'math');
+
+-- Write an SQL query to report all the classes that have at least three students.
+-- Return the result table in any order.
+
+SELECT class
+FROM student
+GROUP BY class
+HAVING COUNT(*) >= 3;
+
+
+Create table salesperson(
+sales_id int,
+name varchar(100),
+salary int,
+commission_rate int,
+hire_date date
+)
+| sales_id | name | salary | commission_rate | hire_date  |
++----------+------+--------+-----------------+------------+
+| 1        | John | 100000 | 6               | 4/1/2006   |
+| 2        | Amy  | 12000  | 5               | 5/1/2010   |
+| 3        | Mark | 65000  | 12              | 12/25/2008 |
+| 4        | Pam  | 25000  | 25              | 1/1/2005   |
+| 5        | Alex | 5000   | 10              | 2/3/2007   |
+create table company(
+com_id int,
+name varchar(100),
+city varchar(100)
+)
+Company table:
++--------+--------+----------+
+| com_id | name   | city     |
++--------+--------+----------+
+| 1      | RED    | Boston   |
+| 2      | ORANGE | New York |
+| 3      | YELLOW | Boston   |
+| 4      | GREEN  | Austin   |
++--------+--------+----------
+
+create table orders(
+order_id int,
+order_date date,
+com_id int,
+sales_id int,
+amount int
+)
++----------+------------+--------+----------+--------+
+| order_id | order_date | com_id | sales_id | amount |
++----------+------------+--------+----------+--------+
+| 1        | 1/1/2014   | 3      | 4        | 10000  |
+| 2        | 2/1/2014   | 4      | 5        | 5000   |
+| 3        | 3/1/2014   | 1      | 1        | 50000  |
+| 4        | 4/1/2014   | 1      | 4        | 25000  |
++----------+------------+--------+----------+--------+
+
+-- Write an SQL query to report the names of all the salespersons who did not have any orders related to the company with the name "RED".
+-- Return the result table in any order.
+
+SELECT s.name
+FROM salesperson s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM orders o
+    JOIN company c
+        ON o.com_id = c.com_id
+    WHERE o.sales_id = s.sales_id
+      AND c.name = 'RED'
+);
+-- step1: sales person and select one sales person at a time
+--so we have sales id=1 and name is JOHN then look at ORDER table for column order_id, com_id, sales_id so sales_id 1 belongs to com_id 1 so com_id = 1 → Company = RED. then query returns 1 Exits = true so Jhon is not returned 
+-- Start with every salesperson.
+-- Check their orders.
+-- Join the orders with the company table.
+-- Look specifically for orders where company.name = 'RED'.
+-- If a RED order exists → exclude the salesperson.
+-- If a RED order does not exist → include the salesperson.
+
+
+SELECT id, movie, description, rating
+FROM Cinema
+WHERE id % 2 = 1 --- Every odd number divided by 2 leaves a remainder of 1.Only return rows where the ID is odd.
+  AND description <> 'boring'
+ORDER BY rating DESC;
+
+
+
+
+
+
+
+
+create table customer(
+id int,
+name varchar(100),
+referee_id int);
+
+insert into customer (id, name, referee_id)
+values
+(1, 'Will', null),
+(2, 'Jane', null),
+(3, 'Alex', 2),
+(4, 'Bil', null),
+(5, 'Zack', 1),
+(6, 'Mark', 2);
+
+
+-- Write an SQL query to report the names of the customer that are not referred by the customer with id = 2.
+-- Return the result table in any order.
+
+select name from customer where referee_id <> 2 or referee_id is null;
+
+
+create table student (
+name varchar(100),
+class varchar(100)
+);
+insert into student(name, class)
+values
+('A', 'math'),
+('B', 'English'),
+('C', 'math'),
+('D', 'Computer'),
+('E', 'math'),
+('F', 'math');
+
+-- Write an SQL query to report all the classes that have at least three students.
+-- Return the result table in any order.
+
+SELECT class
+FROM student
+GROUP BY class
+HAVING COUNT(*) >= 3;
+
+
+Create table salesperson(
+sales_id int,
+name varchar(100),
+salary int,
+commission_rate int,
+hire_date date
+)
+| sales_id | name | salary | commission_rate | hire_date  |
++----------+------+--------+-----------------+------------+
+| 1        | John | 100000 | 6               | 4/1/2006   |
+| 2        | Amy  | 12000  | 5               | 5/1/2010   |
+| 3        | Mark | 65000  | 12              | 12/25/2008 |
+| 4        | Pam  | 25000  | 25              | 1/1/2005   |
+| 5        | Alex | 5000   | 10              | 2/3/2007   |
+create table company(
+com_id int,
+name varchar(100),
+city varchar(100)
+)
+Company table:
++--------+--------+----------+
+| com_id | name   | city     |
++--------+--------+----------+
+| 1      | RED    | Boston   |
+| 2      | ORANGE | New York |
+| 3      | YELLOW | Boston   |
+| 4      | GREEN  | Austin   |
++--------+--------+----------
+
+create table orders(
+order_id int,
+order_date date,
+com_id int,
+sales_id int,
+amount int
+)
++----------+------------+--------+----------+--------+
+| order_id | order_date | com_id | sales_id | amount |
++----------+------------+--------+----------+--------+
+| 1        | 1/1/2014   | 3      | 4        | 10000  |
+| 2        | 2/1/2014   | 4      | 5        | 5000   |
+| 3        | 3/1/2014   | 1      | 1        | 50000  |
+| 4        | 4/1/2014   | 1      | 4        | 25000  |
++----------+------------+--------+----------+--------+
+
+-- Write an SQL query to report the names of all the salespersons who did not have any orders related to the company with the name "RED".
+-- Return the result table in any order.
+
+SELECT s.name
+FROM salesperson s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM orders o
+    JOIN company c
+        ON o.com_id = c.com_id
+    WHERE o.sales_id = s.sales_id
+      AND c.name = 'RED'
+);
+-- step1: sales person and select one sales person at a time
+--so we have sales id=1 and name is JOHN then look at ORDER table for column order_id, com_id, sales_id so sales_id 1 belongs to com_id 1 so com_id = 1 → Company = RED. then query returns 1 Exits = true so Jhon is not returned 
+-- Start with every salesperson.
+-- Check their orders.
+-- Join the orders with the company table.
+-- Look specifically for orders where company.name = 'RED'.
+-- If a RED order exists → exclude the salesperson.
+-- If a RED order does not exist → include the salesperson.
+
+
+SELECT id, movie, description, rating
+FROM Cinema
+WHERE id % 2 = 1 --- Every odd number divided by 2 leaves a remainder of 1.Only return rows where the ID is odd.
+  AND description <> 'boring'
+ORDER BY rating DESC;
+
+
+
+
