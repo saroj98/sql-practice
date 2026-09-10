@@ -1,0 +1,31 @@
+# Write a Python function to reverse a given string.
+# Input: "hello"
+# Output: "olleh"
+
+data = "hello"
+# words = data.split()
+result = ""
+for n in data:
+    result = n + result
+print(result)
+
+#  Check for Anagrams
+# Write a Python function to check if two given strings are anagrams of each other.
+# Input: "listen", "silent"
+# Output: True
+str1 = "listen"
+str2 = "silent"
+count1 = {}
+count2 = {}
+for char in str1:
+ if char in count1:
+    count1[char] = count1[char] + 1
+ else:
+     count1[char] = 1
+for char in str2:
+     if char in count2:
+         count2[char] = count2[char] + 1
+     else:
+         count2[char] = 1
+print(count1 == count2)
+
