@@ -1,0 +1,984 @@
+Hive terminal:
+# bash
+root@ea3e6635a894:/# su takeo
+takeo@ea3e6635a894:/$ cd
+takeo@ea3e6635a894:~$ ls       
+airflow   data    hive                hiveserver2.out  installs      jsdk   keygen.sh  spark
+bootcamp  hadoop  hive_metastore.out  installAll       installshive  kafka  logs       startApps
+takeo@ea3e6635a894:~$ cd startsApps
+bash: cd: startsApps: No such file or directory
+takeo@ea3e6635a894:~$ cd startApps
+takeo@ea3e6635a894:~/startApps$ ls
+'$HOME'   initMachine.sh     restartHive.sh    start-airflow.sh   stop-kafka.sh   stopHive.sh
+ data     restartHadoop.sh   restartKafka.sh   start-kafka.sh     stopHadoop.sh
+takeo@ea3e6635a894:~/startApps$ sh restartHive.sh
+ * Starting OpenBSD Secure Shell server sshd                                                                          [ OK ] 
+ * Stopping MySQL database server mysqld                                                                              [ OK ] 
+ * Starting MySQL database server mysqld                                                                                     su: warning: cannot change directory to /nonexistent: No such file or directory
+                                                                                                                      [fail]
+Stopping Hadoop
+Stopping namenodes on [0.0.0.0]
+Stopping datanodes
+Stopping secondary namenodes [ea3e6635a894]
+Stopping nodemanagers
+Stopping resourcemanager
+WARNING: Use of this script to stop the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon stop" instead.
+WARNING: Use of this script to stop YARN daemons is deprecated.
+WARNING: Attempting to execute replacement "yarn --daemon stop" instead.
+DEPRECATED: Use of this command to start the timeline server is deprecated.
+Instead use the timelineserver command for it.
+Starting the History Server anyway...
+Starting Hadoop
+Starting namenodes on [0.0.0.0]
+Starting datanodes
+Starting secondary namenodes [ea3e6635a894]
+WARNING: Use of this script to execute dfsadmin is deprecated.
+WARNING: Attempting to execute replacement "hdfs dfsadmin" instead.
+
+Safe mode is OFF
+Starting resourcemanager
+Starting nodemanagers
+WARNING: Use of this script to start the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon start" instead.
+WARNING: Use of this script to start YARN daemons is deprecated.
+WARNING: Attempting to execute replacement "yarn --daemon start" instead.
+DEPRECATED: Use of this command to start the timeline server is deprecated.
+Instead use the timelineserver command for it.
+Starting the History Server anyway...
+historyserver is running as process 2465.  Stop it first and ensure /tmp/hadoop-takeo-historyserver.pid file is empty before retry.
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+WARNING: Use of this script to execute dfsadmin is deprecated.
+WARNING: Attempting to execute replacement "hdfs dfsadmin" instead.
+
+Safe mode is OFF
+2026-09-11 00:18:22: Starting Hive Metastore Server
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installs/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installs/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 746ee587-c0c2-4559-a2b7-62138cdebeeb
+
+Logging initialized using configuration in jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/hive-common-3.1.3.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive (default)> MetaException(message:Error creating transactional connection factory)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.<init>(RetryingHMSHandler.java:84)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.getProxy(RetryingHMSHandler.java:93)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:8672)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:8667)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.startMetaStore(HiveMetaStore.java:8937)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.main(HiveMetaStore.java:8854)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+Caused by: MetaException(message:Error creating transactional connection factory)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invokeInternal(RetryingHMSHandler.java:208)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invoke(RetryingHMSHandler.java:108)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.<init>(RetryingHMSHandler.java:80)
+        ... 11 more
+Caused by: javax.jdo.JDOFatalInternalException: Error creating transactional connection factory
+NestedThrowables:
+java.lang.reflect.InvocationTargetException
+        at org.datanucleus.api.jdo.NucleusJDOHelper.getJDOExceptionForNucleusException(NucleusJDOHelper.java:671)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.freezeConfiguration(JDOPersistenceManagerFactory.java:830)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.createPersistenceManagerFactory(JDOPersistenceManagerFactory.java:334)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.getPersistenceManagerFactory(JDOPersistenceManagerFactory.java:213)
+        at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at javax.jdo.JDOHelper$16.run(JDOHelper.java:1965)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.jdo.JDOHelper.invoke(JDOHelper.java:1960)
+        at javax.jdo.JDOHelper.invokeGetPersistenceManagerFactoryOnImplementation(JDOHelper.java:1166)
+        at javax.jdo.JDOHelper.getPersistenceManagerFactory(JDOHelper.java:808)
+        at javax.jdo.JDOHelper.getPersistenceManagerFactory(JDOHelper.java:701)
+        at org.apache.hadoop.hive.metastore.ObjectStore.getPMF(ObjectStore.java:651)
+        at org.apache.hadoop.hive.metastore.ObjectStore.getPersistenceManager(ObjectStore.java:694)
+        at org.apache.hadoop.hive.metastore.ObjectStore.initializeHelper(ObjectStore.java:484)
+        at org.apache.hadoop.hive.metastore.ObjectStore.initialize(ObjectStore.java:421)
+        at org.apache.hadoop.hive.metastore.ObjectStore.setConf(ObjectStore.java:376)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:79)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:139)
+        at org.apache.hadoop.hive.metastore.RawStoreProxy.<init>(RawStoreProxy.java:59)
+        at org.apache.hadoop.hive.metastore.RawStoreProxy.getProxy(RawStoreProxy.java:67)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.newRawStoreForConf(HiveMetaStore.java:720)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMSForConf(HiveMetaStore.java:698)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMS(HiveMetaStore.java:692)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.createDefaultDB(HiveMetaStore.java:775)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.init(HiveMetaStore.java:540)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invokeInternal(RetryingHMSHandler.java:147)
+        ... 13 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.GeneratedConstructorAccessor75.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at org.datanucleus.plugin.NonManagedPluginRegistry.createExecutableExtension(NonManagedPluginRegistry.java:606)
+        at org.datanucleus.plugin.PluginManager.createExecutableExtension(PluginManager.java:330)
+        at org.datanucleus.store.AbstractStoreManager.registerConnectionFactory(AbstractStoreManager.java:203)
+        at org.datanucleus.store.AbstractStoreManager.<init>(AbstractStoreManager.java:162)
+        at org.datanucleus.store.rdbms.RDBMSStoreManager.<init>(RDBMSStoreManager.java:285)
+        at sun.reflect.GeneratedConstructorAccessor74.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at org.datanucleus.plugin.NonManagedPluginRegistry.createExecutableExtension(NonManagedPluginRegistry.java:606)
+        at org.datanucleus.plugin.PluginManager.createExecutableExtension(PluginManager.java:301)
+        at org.datanucleus.NucleusContextHelper.createStoreManagerForProperties(NucleusContextHelper.java:133)
+        at org.datanucleus.PersistenceNucleusContextImpl.initialise(PersistenceNucleusContextImpl.java:422)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.freezeConfiguration(JDOPersistenceManagerFactory.java:817)
+        ... 43 more
+Caused by: org.datanucleus.exceptions.NucleusException: Attempt to invoke the "HikariCP" plugin to create a ConnectionPool gave an error : Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.generateDataSources(ConnectionFactoryImpl.java:232)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.initialiseDataSources(ConnectionFactoryImpl.java:117)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.<init>(ConnectionFactoryImpl.java:82)
+        ... 59 more
+Caused by: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:544)
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:536)
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:112)
+        at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:72)
+        at org.datanucleus.store.rdbms.connectionpool.HikariCPConnectionPoolFactory.createConnectionPool(HikariCPConnectionPoolFactory.java:176)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.generateDataSources(ConnectionFactoryImpl.java:213)
+        ... 61 more
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+        at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+        at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+        at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+        at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+        at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:95)
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:101)
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:356)
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:199)
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:444)
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:515)
+        ... 65 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at sun.reflect.GeneratedConstructorAccessor78.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+        at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+        at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+        at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+        at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+        at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+        ... 74 more
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+        at java.net.PlainSocketImpl.socketConnect(Native Method)
+        at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+        at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+        at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+        at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+        at java.net.Socket.connect(Socket.java:607)
+        at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+        at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+        ... 77 more
+Exception in thread "main" MetaException(message:Error creating transactional connection factory)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.<init>(RetryingHMSHandler.java:84)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.getProxy(RetryingHMSHandler.java:93)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:8672)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:8667)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.startMetaStore(HiveMetaStore.java:8937)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore.main(HiveMetaStore.java:8854)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+Caused by: MetaException(message:Error creating transactional connection factory)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invokeInternal(RetryingHMSHandler.java:208)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invoke(RetryingHMSHandler.java:108)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.<init>(RetryingHMSHandler.java:80)
+        ... 11 more
+Caused by: javax.jdo.JDOFatalInternalException: Error creating transactional connection factory
+NestedThrowables:
+java.lang.reflect.InvocationTargetException
+        at org.datanucleus.api.jdo.NucleusJDOHelper.getJDOExceptionForNucleusException(NucleusJDOHelper.java:671)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.freezeConfiguration(JDOPersistenceManagerFactory.java:830)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.createPersistenceManagerFactory(JDOPersistenceManagerFactory.java:334)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.getPersistenceManagerFactory(JDOPersistenceManagerFactory.java:213)
+        at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at javax.jdo.JDOHelper$16.run(JDOHelper.java:1965)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.jdo.JDOHelper.invoke(JDOHelper.java:1960)
+        at javax.jdo.JDOHelper.invokeGetPersistenceManagerFactoryOnImplementation(JDOHelper.java:1166)
+        at javax.jdo.JDOHelper.getPersistenceManagerFactory(JDOHelper.java:808)
+        at javax.jdo.JDOHelper.getPersistenceManagerFactory(JDOHelper.java:701)
+        at org.apache.hadoop.hive.metastore.ObjectStore.getPMF(ObjectStore.java:651)
+        at org.apache.hadoop.hive.metastore.ObjectStore.getPersistenceManager(ObjectStore.java:694)
+        at org.apache.hadoop.hive.metastore.ObjectStore.initializeHelper(ObjectStore.java:484)
+        at org.apache.hadoop.hive.metastore.ObjectStore.initialize(ObjectStore.java:421)
+        at org.apache.hadoop.hive.metastore.ObjectStore.setConf(ObjectStore.java:376)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:79)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:139)
+        at org.apache.hadoop.hive.metastore.RawStoreProxy.<init>(RawStoreProxy.java:59)
+        at org.apache.hadoop.hive.metastore.RawStoreProxy.getProxy(RawStoreProxy.java:67)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.newRawStoreForConf(HiveMetaStore.java:720)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMSForConf(HiveMetaStore.java:698)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMS(HiveMetaStore.java:692)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.createDefaultDB(HiveMetaStore.java:775)
+        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.init(HiveMetaStore.java:540)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invokeInternal(RetryingHMSHandler.java:147)
+        ... 13 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.GeneratedConstructorAccessor75.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at org.datanucleus.plugin.NonManagedPluginRegistry.createExecutableExtension(NonManagedPluginRegistry.java:606)
+        at org.datanucleus.plugin.PluginManager.createExecutableExtension(PluginManager.java:330)
+        at org.datanucleus.store.AbstractStoreManager.registerConnectionFactory(AbstractStoreManager.java:203)
+        at org.datanucleus.store.AbstractStoreManager.<init>(AbstractStoreManager.java:162)
+        at org.datanucleus.store.rdbms.RDBMSStoreManager.<init>(RDBMSStoreManager.java:285)
+        at sun.reflect.GeneratedConstructorAccessor74.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at org.datanucleus.plugin.NonManagedPluginRegistry.createExecutableExtension(NonManagedPluginRegistry.java:606)
+        at org.datanucleus.plugin.PluginManager.createExecutableExtension(PluginManager.java:301)
+        at org.datanucleus.NucleusContextHelper.createStoreManagerForProperties(NucleusContextHelper.java:133)
+        at org.datanucleus.PersistenceNucleusContextImpl.initialise(PersistenceNucleusContextImpl.java:422)
+        at org.datanucleus.api.jdo.JDOPersistenceManagerFactory.freezeConfiguration(JDOPersistenceManagerFactory.java:817)
+        ... 43 more
+Caused by: org.datanucleus.exceptions.NucleusException: Attempt to invoke the "HikariCP" plugin to create a ConnectionPool gave an error : Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.generateDataSources(ConnectionFactoryImpl.java:232)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.initialiseDataSources(ConnectionFactoryImpl.java:117)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.<init>(ConnectionFactoryImpl.java:82)
+        ... 59 more
+Caused by: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:544)
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:536)
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:112)
+        at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:72)
+        at org.datanucleus.store.rdbms.connectionpool.HikariCPConnectionPoolFactory.createConnectionPool(HikariCPConnectionPoolFactory.java:176)
+        at org.datanucleus.store.rdbms.ConnectionFactoryImpl.generateDataSources(ConnectionFactoryImpl.java:213)
+        ... 61 more
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+        at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+        at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+        at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+        at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+        at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:95)
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:101)
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:356)
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:199)
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:444)
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:515)
+        ... 65 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+        at sun.reflect.GeneratedConstructorAccessor78.newInstance(Unknown Source)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+        at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+        at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+        at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+        at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+        at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+        at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+        ... 74 more
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+        at java.net.PlainSocketImpl.socketConnect(Native Method)
+        at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+        at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+        at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+        at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+        at java.net.Socket.connect(Socket.java:607)
+        at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+        at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+        ... 77 more
+
+              > show databases:
+              > ;
+FAILED: ParseException line 1:14 extraneous input ':' expecting EOF near '<EOF>'
+hive (default)> 
+              > show databases;
+FAILED: HiveException java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
+hive (default)> quit
+              > quit;
+NoViableAltException(24@[])
+        at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1387)
+        at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+        at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+        at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+        at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+        at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+        at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+        at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+        at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+        at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:0 cannot recognize input near 'quit' 'quit' '<EOF>'
+hive (default)> ;
+hive (default)> quit;
+takeo@ea3e6635a894:~/startApps$ jps
+2465 JobHistoryServer
+2898 RunJar
+1347 NameNode
+1958 ResourceManager
+2070 NodeManager
+3084 Jps
+1452 DataNode
+1679 SecondaryNameNode
+takeo@ea3e6635a894:~/startApps$ ls
+'$HOME'   initMachine.sh     restartHive.sh    start-airflow.sh   stop-kafka.sh   stopHive.sh
+ data     restartHadoop.sh   restartKafka.sh   start-kafka.sh     stopHadoop.sh
+takeo@ea3e6635a894:~/startApps$ sh stopHive.sh
+stopHive.sh: 2: kill: Usage: kill [-s sigspec | -signum | -sigspec] [pid | job]... or
+kill -l [exitstatus]
+takeo@ea3e6635a894:~/startApps$ jps
+2465 JobHistoryServer
+2898 RunJar
+1347 NameNode
+1958 ResourceManager
+2070 NodeManager
+3126 Jps
+1452 DataNode
+1679 SecondaryNameNode
+takeo@ea3e6635a894:~/startApps$ sh restartHive.sh
+ * Starting OpenBSD Secure Shell server sshd                        [ OK ] 
+ * Stopping MySQL database server mysqld                        [ OK ] 
+ * Starting MySQL database server mysqld                               su: warning: cannot change directory to /nonexistent: No such file or directory
+                 [ OK ]
+Stopping Hadoop
+Stopping namenodes on [0.0.0.0]
+Stopping datanodes
+Stopping secondary namenodes [ea3e6635a894]
+Stopping nodemanagers
+Stopping resourcemanager
+WARNING: Use of this script to stop the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon stop" instead.
+WARNING: Use of this script to stop YARN daemons is deprecated.
+WARNING: Attempting to execute replacement "yarn --daemon stop" instead.
+DEPRECATED: Use of this command to start the timeline server is deprecated.
+Instead use the timelineserver command for it.
+Starting the History Server anyway...
+Starting Hadoop
+Starting namenodes on [0.0.0.0]
+Starting datanodes
+Starting secondary namenodes [ea3e6635a894]
+WARNING: Use of this script to execute dfsadmin is deprecated.
+WARNING: Attempting to execute replacement "hdfs dfsadmin" instead.
+
+Safe mode is OFF
+Starting resourcemanager
+Starting nodemanagers
+WARNING: Use of this script to start the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon start" instead.
+WARNING: Use of this script to start YARN daemons is deprecated.
+WARNING: Attempting to execute replacement "yarn --daemon start" instead.
+DEPRECATED: Use of this command to start the timeline server is deprecated.
+Instead use the timelineserver command for it.
+Starting the History Server anyway...
+historyserver is running as process 5363.  Stop it first and ensure /tmp/hadoop-takeo-historyserver.pid file is empty before retry.
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+WARNING: Use of this script to execute dfsadmin is deprecated.
+WARNING: Attempting to execute replacement "hdfs dfsadmin" instead.
+
+Safe mode is OFF
+2026-09-11 00:26:13: Starting Hive Metastore Server
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installs/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installs/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = e4f55a3c-d9f7-4658-b0b8-1f53e8aa5099
+
+Logging initialized using configuration in jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/hive-common-3.1.3.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Hive Session ID = 805d9dec-0b01-4070-9de9-613685e20e13
+hive (default)> show databases;
+OK
+default
+Time taken: 0.527 seconds, Fetched: 1 row(s)
+hive (default)> show table
+              > show tables;
+MismatchedTokenException(284!=123)
+        at org.antlr.runtime.BaseRecognizer.recoverFromMismatchedToken(BaseRecognizer.java:617)
+        at org.antlr.runtime.BaseRecognizer.match(BaseRecognizer.java:115)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.showStatement(HiveParser.java:17915)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:4365)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2494)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+        at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+        at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+        at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+        at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+        at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+        at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+        at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+        at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+        at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 2:0 mismatched input 'show' expecting EXTENDED near 'table' in show statement
+hive (default)> show tables;
+OK
+non_partitioned_date1
+partition_date
+test
+test_hive
+Time taken: 0.165 seconds, Fetched: 4 row(s)
+hive (default)> select * from partition_date;
+OK
+abc     1999-12-20      e1
+abc     2000-01-01      e1
+abc     2000-01-01      e1
+abc     2000-01-02      e1
+Time taken: 2.992 seconds, Fetched: 4 row(s)
+hive (default)> create database xyz;
+OK
+Time taken: 1.058 seconds
+hive (default)> use xyz;
+OK
+Time taken: 0.111 seconds
+hive (xyz)> CREATE external TABLE customer(id int, name string, dob date, time1 timestamp) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/data/test/text';
+OK
+Time taken: 0.577 seconds
+hive (xyz)> show tables;
+OK
+customer
+Time taken: 0.127 seconds, Fetched: 1 row(s)
+hive (xyz)> select *from customer;
+OK
+1       rahul   2010-01-01      2010-01-01 01:01:01
+2       rakesh  2010-01-02      2010-01-02 01:01:01
+NULL    rahul   NULL    2010-01-01 01:01:01
+4       rakesh  2010-01-02      2010-01-02 01:01:01
+Time taken: 0.272 seconds, Fetched: 4 row(s)
+hive (xyz)> drop customer;
+NoViableAltException(24@[917:1: ddlStatement : ( createDatabaseStatement | switchDatabaseStatement | dropDatabaseStatement | createTableStatement | dropTableStatement | truncateTableStatement | alterStatement | descStatement | showStatement | metastoreCheck | createViewStatement | createMaterializedViewStatement | dropViewStatement | dropMaterializedViewStatement | createFunctionStatement | createMacroStatement | dropFunctionStatement | reloadFunctionStatement | dropMacroStatement | analyzeStatement | lockStatement | unlockStatement | lockDatabase | unlockDatabase | createRoleStatement | dropRoleStatement | ( grantPrivileges )=> grantPrivileges | ( revokePrivileges )=> revokePrivileges | showGrants | showRoleGrants | showRolePrincipals | showRoles | grantRole | revokeRole | setRole | showCurrentRole | abortTransactionStatement | killQueryStatement | resourcePlanDdlStatements );])
+        at org.antlr.runtime.DFA.noViableAlt(DFA.java:158)
+        at org.antlr.runtime.DFA.predict(DFA.java:144)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:4244)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2494)
+        at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+        at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+        at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+        at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+        at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+        at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+        at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+        at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+        at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+        at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:5 cannot recognize input near 'drop' 'customer' '<EOF>' in ddl statement
+hive (xyz)> drop table customer;
+OK
+Time taken: 0.497 seconds
+hive (xyz)> show tables;
+OK
+Time taken: 0.108 seconds
+hive (xyz)> CREATE external TABLE customer(id int, name string, dob date, time1 timestamp) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/data/test/text';
+OK
+Time taken: 0.169 seconds
+hive (xyz)> show tables;
+OK
+customer
+Time taken: 0.137 seconds, Fetched: 1 row(s)
+hive (xyz)> create table emp(empId int, empName String, doj date);
+OK
+Time taken: 0.47 seconds
+hive (xyz)> insert into emp values(1,'vishal','2009-01-01');
+Query ID = takeo_20260911004612_b044a4ee-3526-4b44-9754-dafa71ede460
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1789086362930_0001, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0001/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2026-09-11 00:46:27,134 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 00:46:32,590 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.36 sec
+MapReduce Total cumulative CPU time: 3 seconds 360 msec
+Ended Job = job_1789086362930_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/emp/.hive-staging_hive_2026-09-11_00-46-12_863_2060110987602895425-1/-ext-10000
+Loading data to table xyz.emp
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 3.36 sec   HDFS Read: 5565 HDFS Write: 83 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 360 msec
+OK
+Time taken: 22.91 seconds
+hive (xyz)> select *from emp;
+OK
+1       vishal  2009-01-01
+Time taken: 0.289 seconds, Fetched: 1 row(s)
+hive (xyz)> drop table emp;
+OK
+Time taken: 0.264 seconds
+hive (xyz)> show tables;
+OK
+customer
+Time taken: 0.072 seconds, Fetched: 1 row(s)
+hive (xyz)> create table emp(empId int, empName String, doj date);
+OK
+Time taken: 0.178 seconds
+hive (xyz)> insert into emp values(1,'vishal','2009-01-01');
+Query ID = takeo_20260911005251_681b6760-10fd-4cb9-a2f7-40c8421784fd
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1789086362930_0002, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0002/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2026-09-11 00:53:00,456 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 00:53:07,816 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.43 sec
+MapReduce Total cumulative CPU time: 3 seconds 430 msec
+Ended Job = job_1789086362930_0002
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/emp/.hive-staging_hive_2026-09-11_00-52-51_256_5567907924732093865-1/-ext-10000
+Loading data to table xyz.emp
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 3.43 sec   HDFS Read: 5565 HDFS Write: 83 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 430 msec
+OK
+Time taken: 18.06 seconds
+hive (xyz)> show tables;
+OK
+customer
+emp
+Time taken: 0.077 seconds, Fetched: 2 row(s)
+hive (xyz)> Display all 634 possibilities? (y or n)
+hive (xyz)> [
+          > create table emp1(empId int, empName String, doj date);
+NoViableAltException(362@[])
+        at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1387)
+        at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+        at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+        at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+        at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+        at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+        at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+        at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+        at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+        at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+        at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+        at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:0 cannot recognize input near '[' 'create' 'table'
+hive (xyz)> create table emp1(empId int, empName String, doj date);
+OK
+Time taken: 0.148 seconds
+hive (xyz)> show tables;
+OK
+customer
+emp
+emp1
+Time taken: 0.061 seconds, Fetched: 3 row(s)
+hive (xyz)> INSERT OVERWRITE TABLE emp1 select * from emp;
+Query ID = takeo_20260911010335_a83529b0-09eb-47d9-9a07-4573bff21906
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1789086362930_0003, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0003/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2026-09-11 01:03:45,432 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:03:50,640 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.45 sec
+MapReduce Total cumulative CPU time: 3 seconds 450 msec
+Ended Job = job_1789086362930_0003
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/emp1/.hive-staging_hive_2026-09-11_01-03-35_825_3992147340363259272-1/-ext-10000
+Loading data to table xyz.emp1
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 3.45 sec   HDFS Read: 5390 HDFS Write: 84 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 450 msec
+OK
+Time taken: 17.688 seconds
+hive (xyz)> select * from emp1;
+OK
+1       vishal  2009-01-01
+Time taken: 0.322 seconds, Fetched: 1 row(s)
+hive (xyz)> INSERT INTO TABLE emp1 select * from emp;
+Query ID = takeo_20260911010630_89b40c5d-3f20-4fb2-b185-b737f81f5432
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1789086362930_0004, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0004/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0004
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2026-09-11 01:06:40,144 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:06:45,356 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.52 sec
+MapReduce Total cumulative CPU time: 2 seconds 520 msec
+Ended Job = job_1789086362930_0004
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/emp1/.hive-staging_hive_2026-09-11_01-06-30_840_1289021064530567468-1/-ext-10000
+Loading data to table xyz.emp1
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 2.52 sec   HDFS Read: 5407 HDFS Write: 84 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 520 msec
+OK
+Time taken: 15.988 seconds
+hive (xyz)> select * from emp1;
+OK
+1       vishal  2009-01-01
+1       vishal  2009-01-01
+Time taken: 0.318 seconds, Fetched: 2 row(s)
+hive (xyz)> INSERT OVERWRITE TABLE emp1 select * from emp;
+Query ID = takeo_20260911010710_2108e2e8-f322-4758-afa3-5c311a30bcee
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1789086362930_0005, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0005/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0005
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2026-09-11 01:07:18,779 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:07:23,980 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.83 sec
+MapReduce Total cumulative CPU time: 2 seconds 830 msec
+Ended Job = job_1789086362930_0005
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/emp1/.hive-staging_hive_2026-09-11_01-07-10_259_559272352809493262-1/-ext-10000
+Loading data to table xyz.emp1
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 2.83 sec   HDFS Read: 5303 HDFS Write: 84 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 830 msec
+OK
+Time taken: 16.319 seconds
+hive (xyz)> select * from emp1;
+OK
+1       vishal  2009-01-01
+Time taken: 0.229 seconds, Fetched: 1 row(s)
+hive (xyz)> CREATE TABLE non_partitioned_date1(column1 string, day string,event string);
+OK
+Time taken: 0.161 seconds
+hive (xyz)> insert into non_partitioned_date1 values('abc', '2000-01-01','e1') , ('abc', '2000-01-02','e1'), ('abc', '1999-12-20','e1') ,('abc', '2000-01-01','e1');
+Query ID = takeo_20260911011043_25b9de60-2323-47df-82e0-2c862221ef0a
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1789086362930_0006, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0006/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0006
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2026-09-11 01:10:52,354 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:10:58,682 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.5 sec
+2026-09-11 01:11:03,922 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.13 sec
+MapReduce Total cumulative CPU time: 6 seconds 130 msec
+Ended Job = job_1789086362930_0006
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/non_partitioned_date1/.hive-staging_hive_2026-09-11_01-10-43_373_5649580410700692343-1/-ext-10000
+Loading data to table xyz.non_partitioned_date1
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.13 sec   HDFS Read: 16543 HDFS Write: 364 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 130 msec
+OK
+Time taken: 24.405 seconds
+hive (xyz)> select *from non_partitioned_date1;
+OK
+abc     2000-01-01      e1
+abc     2000-01-02      e1
+abc     1999-12-20      e1
+abc     2000-01-01      e1
+Time taken: 0.177 seconds, Fetched: 4 row(s)
+hive (xyz)> CREATE TABLE partition_date(column1 string) partitioned by (day string, event string);
+OK
+Time taken: 0.165 seconds
+hive (xyz)> insert overwrite table partition_date partition(day,event) select column1,day,event from non_partitioned_date1;
+FAILED: SemanticException [Error 10096]: Dynamic partition strict mode requires at least one static partition column. To turn this off set hive.exec.dynamic.partition.mode=nonstrict
+hive (xyz)> set hive.exec.dynamic.partition.mode=nonstrict;
+hive (xyz)> insert overwrite table partition_date partition(day,event) select column1,day,event from non_partitioned_date1;
+Query ID = takeo_20260911012158_78a415b2-a2e6-4549-8621-6a49d8e55cd1
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1789086362930_0007, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0007/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0007
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2026-09-11 01:22:07,512 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:22:12,710 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.16 sec
+2026-09-11 01:22:18,018 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.06 sec
+MapReduce Total cumulative CPU time: 6 seconds 60 msec
+Ended Job = job_1789086362930_0007
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/partition_date/.hive-staging_hive_2026-09-11_01-21-58_320_5948249206912745408-1/-ext-10000
+Loading data to table xyz.partition_date partition (day=null, event=null)
+
+
+         Time taken to load dynamic partitions: 0.454 seconds
+         Time taken for adding to write entity : 0.0 seconds
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.06 sec   HDFS Read: 13964 HDFS Write: 503 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 60 msec
+OK
+Time taken: 22.897 seconds
+hive (xyz)> select *from partition_date;
+OK
+abc     1999-12-20      e1
+abc     2000-01-01      e1
+abc     2000-01-01      e1
+abc     2000-01-02      e1
+Time taken: 0.289 seconds, Fetched: 4 row(s)
+hive (xyz)> show partitions partition_date;
+OK
+day=1999-12-20/event=e1
+day=2000-01-01/event=e1
+day=2000-01-02/event=e1
+Time taken: 0.226 seconds, Fetched: 3 row(s)
+hive (xyz)> CREATE TABLE partition_date_1(column1 string) partitioned by (day string, event string);
+OK
+Time taken: 0.275 seconds
+hive (xyz)> insert overwrite table partition_date_1 partition(day,event) select column1,event,day from non_partitioned_date1;
+Query ID = takeo_20260911013725_06132c93-529f-4d83-a568-92bb642485ee
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1789086362930_0008, Tracking URL = http://ea3e6635a894:8088/proxy/application_1789086362930_0008/
+Kill Command = /home/takeo/installs/hadoop/bin/mapred job  -kill job_1789086362930_0008
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2026-09-11 01:37:32,676 Stage-1 map = 0%,  reduce = 0%
+2026-09-11 01:37:38,954 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.78 sec
+2026-09-11 01:37:45,151 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.28 sec
+MapReduce Total cumulative CPU time: 7 seconds 280 msec
+Ended Job = job_1789086362930_0008
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:54310/data/hive/warehouse/xyz.db/partition_date_1/.hive-staging_hive_2026-09-11_01-37-25_641_1927092350195949308-1/-ext-10000
+Loading data to table xyz.partition_date_1 partition (day=null, event=null)
+
+
+         Time taken to load dynamic partitions: 0.427 seconds
+         Time taken for adding to write entity : 0.001 seconds
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.28 sec   HDFS Read: 14131 HDFS Write: 509 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 280 msec
+OK
+Time taken: 21.529 seconds
+hive (xyz)> show partitions partition_date_1;
+OK
+day=e1/event=1999-12-20
+day=e1/event=2000-01-01
+day=e1/event=2000-01-02
+Time taken: 0.146 seconds, Fetched: 3 row(s)
+hive (xyz)> ALTER TABLE partition_date DROP PARTITION(day = '2000-01-01', event = 'e1');
+Dropped the partition day=2000-01-01/event=e1
+OK
+Time taken: 0.67 seconds
+hive (xyz)> show partitions partition_date;
+OK
+day=1999-12-20/event=e1
+day=2000-01-02/event=e1
+Time taken: 0.168 seconds, Fetched: 2 row(s)
+hive (xyz)>
+HDFS—Hadoop:
+# bash
+root@ea3e6635a894:/# su takeo
+takeo@ea3e6635a894:/$ cd
+takeo@ea3e6635a894:~$ ls
+airflow   data    hive                hiveserver2.out  installs      jsdk   keygen.sh  spark
+bootcamp  hadoop  hive_metastore.out  installAll       installshive  kafka  logs       startApps
+takeo@ea3e6635a894:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/takeo/bootcamp/installs/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 3dc1bc7b-3a20-4d98-b8c8-486710b5170e
+
+Logging initialized using configuration in jar:file:/home/takeo/bootcamp/installshive/apache-hive-3.1.3-bin/lib/hive-common-3.1.3.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive (default)> show databases;
+FAILED: HiveException java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
+hive (default)> quit;
+takeo@ea3e6635a894:~$ nano customer.txt
+takeo@ea3e6635a894:~$ hadoop fs -mkdir -p /data/test/text
+takeo@ea3e6635a894:~$ hadoop fs -put customer.txt /data/test/text
+takeo@ea3e6635a894:~$ ls
+airflow   customer.txt  hadoop  hive_metastore.out  installAll  installshive  kafka      logs   startApps
+bootcamp  data          hive    hiveserver2.out     installs    jsdk          keygen.sh  spark
+takeo@ea3e6635a894:~$ hadoop fs -ls
+Found 2 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-03 01:35 user
+-rw-r--r--   1 takeo supergroup       3035 2026-09-03 01:39 zipcode.csv
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/test/text
+Found 1 items
+-rw-r--r--   1 takeo supergroup        147 2026-09-11 00:32 /data/test/text/customer.txt
+takeo@ea3e6635a894:~$ ls
+airflow   customer.txt  hadoop  hive_metastore.out  installAll  installshive  kafka      logs   startApps
+bootcamp  data          hive    hiveserver2.out     installs    jsdk          keygen.sh  spark
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/test/text
+Found 1 items
+-rw-r--r--   1 takeo supergroup        147 2026-09-11 00:32 /data/test/text/customer.txt
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive
+Found 1 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 00:34 /data/hive/warehouse
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive/warehouse
+Found 4 items
+drwxr-xr-x   - takeo supergroup          0 2023-02-01 11:32 /data/hive/warehouse/non_partitioned_date1
+drwxr-xr-x   - takeo supergroup          0 2023-02-01 12:06 /data/hive/warehouse/partition_date
+drwxr-xr-x   - takeo supergroup          0 2023-09-18 11:55 /data/hive/warehouse/test
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 00:34 /data/hive/warehouse/xyz.db
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive/warehouse/xyz.db
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive/warehouse/xyz.db
+Found 1 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 00:44 /data/hive/warehouse/xyz.db/emp
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive/warehouse/xyz.db/emp
+takeo@ea3e6635a894:~$ hadoop fs -ls /data/hive/warehouse/xyz.db/emp
+Found 1 items
+-rw-r--r--   1 takeo supergroup         20 2026-09-11 00:46 /data/hive/warehouse/xyz.db/emp/000000_0
+takeo@ea3e6635a894:~$ hadoop fs -cat  /data/hive/warehouse/xyz.db/emp/000000_0
+1vishal2009-01-01
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db
+Found 3 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 00:53 /data/hive/warehouse/xyz.db/emp
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:07 /data/hive/warehouse/xyz.db/emp1
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:11 /data/hive/warehouse/xyz.db/non_partitioned_date1
+takeo@ea3e6635a894:~$ ls
+airflow   customer.txt  hadoop  hive_metastore.out  installAll  installshive  kafka      logs   startApps
+bootcamp  data          hive    hiveserver2.out     installs    jsdk          keygen.sh  spark
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/non_partitioned_data1
+ls: `/data/hive/warehouse/xyz.db/non_partitioned_data1': No such file or directory
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/non_partitioned_date1
+Found 1 items
+-rw-r--r--   1 takeo supergroup         72 2026-09-11 01:10 /data/hive/warehouse/xyz.db/non_partitioned_date1/000000_0
+takeo@ea3e6635a894:~$ hadoop fs -cat /data/hive/warehouse/xyz.db/non_partitioned_date1/000000_0
+abc2000-01-01e1
+abc2000-01-02e1
+abc1999-12-20e1
+abc2000-01-01e1
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db
+Found 4 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 00:53 /data/hive/warehouse/xyz.db/emp
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:07 /data/hive/warehouse/xyz.db/emp1
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:11 /data/hive/warehouse/xyz.db/non_partitioned_date1
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/partition_date
+Found 3 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=1999-12-20
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=2000-01-02
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/non_partitioned_date1
+Found 1 items
+-rw-r--r--   1 takeo supergroup         72 2026-09-11 01:10 /data/hive/warehouse/xyz.db/non_partitioned_date1/000000_0
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/partition_date/day=1999-12-20
+Found 1 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=1999-12-20/event=e1
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01
+Found 1 items
+drwxr-xr-x   - takeo supergroup          0 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01/event=e1
+takeo@ea3e6635a894:~$ hadoop fs -ls  /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01/event=e1
+Found 1 items
+-rw-r--r--   1 takeo supergroup          8 2026-09-11 01:22 /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01/event=e1/000000_0
+takeo@ea3e6635a894:~$ hadoop fs -cat  /data/hive/warehouse/xyz.db/partition_date/day=2000-01-01/event=e1/000000_0
+abc
+abc
+takeo@ea3e6635a894
