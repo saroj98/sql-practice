@@ -1,0 +1,84 @@
+create table medical_visits (
+    visit_id int,
+    patient_id int,
+    diagnosis string,
+    treatment string
+)
+partitioned by (
+    visit_date string,
+    region string
+)
+clustered by (patient_id) into 5 buckets
+row format delimited
+fields terminated by ','
+stored as textfile;
+
+
+load data local inpath '/home/takeo/startApps/ North.csv' overwrite into table medical_visits partition (visit_date='2023-09-01', region='North');
+
+
+create table prescriptions (
+    prescription_id int,
+    visit_id int,
+    patient_age int,
+    patient_gender string,
+    drug_name string,
+    dosage string
+)
+partitioned by (
+    prescription_date string,
+    region string
+)
+clustered by (drug_name) into 5 buckets
+row format delimited
+fields terminated by ','
+stored as textfile;
+
+
+load data local inpath '/home/takeo/startApps/prescribe.csv' overwrite into table prescriptions partition ( prescription_date='2023-09-03', region='East' );
+
+
+
+
+
+Patient visits by region
+select region, count(*) as total_visits
+from medical_visits
+group by region;
+
+
+Visits for a particular date and region
+
+
+select *
+from medical_visits
+where visit_date = '2023-09-01'
+and region = 'North';
+
+Top prescribed drugs
+
+select drug_name, count(*) as prescription_count
+from prescriptions
+group by drug_name
+order by prescription_count desc;
+Drugs by region
+select region, drug_name, count(*) as prescription_count
+from prescriptions
+group by region, drug_name
+order by region, prescription_count desc;
+
+
+Patient demographics
+
+select patient_gender, count(*) as patient_count
+from prescriptions
+group by patient_gender;
+
+
+Age analysis
+
+
+select patient_age, count(*) as patient_count
+from prescriptions
+group by patient_age
+order by patient_age;
