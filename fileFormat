@@ -1,0 +1,10 @@
+def fileFormat(spark):
+    df = spark.read.csv("file:///home/takeo/zipcodes.csv")
+    df.printSchema()
+    df.show()
+    df2 = spark.read.option("header",True).csv("file:///home/takeo/zipcodes.csv")
+    df3 = spark.read.options(delimiter=',').csv("file:///home/takeo/zipcodes.csv")
+    df3.show()
+
+
+
