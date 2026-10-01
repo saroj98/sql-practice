@@ -1,0 +1,77 @@
+from pyspark.sql.functions import col
+
+
+def ecommerce(spark):
+    data = [
+        (1, 101, 5001, 'Laptop', 'Electronics', 1000.0, 1),
+        (2, 102, 5002, 'Headphones', 'Electronics', 50.0, 2),
+        (3, 101, 5003, 'Book', 'Books', 20.0, 3),
+        (4, 103, 5004, 'Laptop', 'Electronics', 1000.0, 1),
+        (5, 102, 5005, 'Chair', 'Furniture', 150.0, 1)
+    ]
+
+    columns = ["transaction_id", "customer_id", "product_id", "product_name", "category", "price", "quantity"]
+    df = spark.createDataFrame(data=data, schema=columns)
+    df.printSchema()
+    df.show()
+    #Filter
+    print("Quantity greater than 1:")
+    df.filter(df.quantity > 1).show()
+
+ # Step 3: Null handling
+    average_price = df.selectExpr("avg(price)").collect()[0][0]
+    df_filled = df.na.fill({"price": average_price})
+    print("Null values filled:")
+    df_filled.show()
+
+    # Step 4: Drop duplicates
+    print("Duplicates removed:")
+    df.dropDuplicates(["customer_id", "product_id"]).show()
+
+    # Step 5: Select columns
+    print("Selected columns:")
+    df.select("customer_id", "product_name", "price").show()
+
+    # Step 6: Total spending
+    print("Total spending per customer:")
+    df_grouped = df.groupBy("customer_id").agg({"price": "sum"})
+    df_grouped.show()
+
+    # Step 7: Customer DataFrame
+    customer_data = [
+        (101, "John Doe", "john@example.com"),
+        (102, "Jane Smith", "jane@example.com"),
+        (103, "Alice Johnson", "alice@example.com")
+    ]
+
+    customer_columns = [
+        "customer_id",
+        "customer_name",
+        "email"
+    ]
+    df_customers = spark.createDataFrame(data = customer_data, schema = customer_columns)
+    print("Joined Data:")
+    df.join(
+        df_customers,
+        on="customer_id",
+        how="inner"
+    ).show()
+
+ # Step 8: Union
+    new_data = [
+        (6, 104, 5006, "Table", "Furniture", 200.0, 1)
+    ]
+    df_new = spark.createDataFrame(new_data, columns)
+    print("Union Data:")
+    df.union(df_new).show()
+
+ # Step 9: SQL
+    df.createOrReplaceTempView("transactions")
+    print("SQL Result:")
+    spark.sql("""
+            SELECT
+                customer_id,
+                SUM(price * quantity) AS total_spent
+            FROM transactions
+            GROUP BY customer_id
+        """).show()
