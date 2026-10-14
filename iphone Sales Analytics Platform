@@ -1,0 +1,407 @@
+iPhone Sales Analytics Platform
+(HDFS + Hive + PySpark + Medallion Architecture + Dimensional Modeling)
+Business Problem
+An electronics retailer wants to analyze iPhone sales across stores, customers, and time.
+Raw sales data arrives daily as CSV files from store systems and is stored in HDFS.
+ The business wants analytics-ready Hive tables for reporting such as:
+●	Daily & monthly sales
+
+●	Customer purchase behavior
+
+●	Product performance
+
+●	Revenue trends
+
+As a Data Engineer, you must:
+●	Ingest raw CSV data
+
+●	Clean & standardize it
+
+●	Build dimension & fact tables in Hive
+
+●	Follow Medallion Architecture
+
+High-Level Architecture
+CSV Files (Stores)
+        |
+        v
+     HDFS
+        |
+        v
+---------------------
+ Bronze Layer (Hive)
+---------------------
+        |
+        v
+---------------------
+ Silver Layer (Hive)
+---------------------
+        |
+        v
+---------------------
+ Gold Layer (Hive)
+  (Star Schema)
+---------------------
+
+Technology Stack
+Layer	Tools
+Storage	HDFS
+Processing	PySpark
+Formats	CSV → Parquet
+Warehouse	Hive
+Modeling	Star Schema
+Querying	Hive SQL
+________________________________________
+Sample Input Data (CSV)
+ customers.csv
+
+customer_id,customer_name,city,state
+1,Alice,San Jose,CA
+2,Bob,Dallas,TX
+3,Charlie,New York,NY
+
+products.csv
+
+product_id,product_name,category,unit_price
+101,iPhone 13,Mobile,900
+102,iPhone 14,Mobile,1100
+103,AirPods,Accessory,200
+
+
+stores.csv 
+
+store_id,store_name,city,state
+10,Apple Store SJ,San Jose,CA
+20,Apple Store NY,New York,NY
+
+
+sales.csv
+
+sale_id,product_id,customer_id,store_id,sale_date,quantity
+1,101,1,10,2023-01-10,1
+2,102,2,20,2023-01-12,2
+3,101,3,20,2023-01-15,1
+4,103,1,10,2023-01-20,2
+
+BRONZE LAYER – Raw Ingestion
+ Goal
+●	Store raw data as-is
+
+●	Minimal transformation
+
+●	CSV → Parquet
+
+●	One table per source
+PySpark Bronze Ingestion Utility
+def bronze_ingestion(spark, csv_path, table_name):
+    df = (
+        spark.read
+        .option("header", "true")
+        .csv(csv_path)
+    )
+
+    (
+        df.write
+        .mode("overwrite")
+        .format("parquet")
+        .saveAsTable(f"bronze_{table_name}")
+    )
+
+    return f"bronze_{table_name}"
+
+Bronze Tables
+●	bronze_customers
+
+●	bronze_products
+
+●	bronze_stores
+
+●	bronze_sales
+
+SILVER LAYER – Clean & Standardized
+Goal
+●	Enforce schema
+
+●	Fix data types
+
+●	Remove bad records
+
+●	Prepare for joins
+
+________________________________________
+Silver Transformation Example (Sales)
+from pyspark.sql.functions import col, to_date
+
+def silver_sales_transform(spark):
+    df = spark.table("bronze_sales")
+
+    clean_df = (
+        df.withColumn("sale_id", col("sale_id").cast("int"))
+          .withColumn("product_id", col("product_id").cast("int"))
+          .withColumn("customer_id", col("customer_id").cast("int"))
+          .withColumn("store_id", col("store_id").cast("int"))
+          .withColumn("quantity", col("quantity").cast("int"))
+          .withColumn("sale_date", to_date(col("sale_date")))
+    )
+
+    (
+        clean_df.write
+        .mode("overwrite")
+        .partitionBy("sale_date")
+        .format("parquet")
+        .saveAsTable("silver_sales")
+    )
+
+    return "silver_sales"
+
+________________________________________
+Silver Tables
+●	silver_customers
+
+●	silver_products
+
+●	silver_stores
+
+●	silver_sales (partitioned by sale_date)
+
+GOLD LAYER – Dimensional Modeling (Star Schema)
+Star Schema Design
+             dim_date
+                  |
+                  |
+dim_customer — fact_sales — dim_product
+                  |
+                  |
+              dim_store
+
+________________________________________
+GOLD DIMENSION TABLES (Hive)
+dim_customer
+CREATE TABLE dim_customer (
+  customer_id INT,
+  customer_name STRING,
+  city STRING,
+  state STRING
+)
+STORED AS PARQUET;
+
+dim_product
+CREATE TABLE dim_product (
+  product_id INT,
+  product_name STRING,
+  category STRING,
+  unit_price INT
+)
+STORED AS PARQUET;
+
+dim_store
+CREATE TABLE dim_store (
+  store_id INT,
+  store_name STRING,
+  city STRING,
+  state STRING
+)
+STORED AS PARQUET;
+
+dim_date
+CREATE TABLE dim_date (
+  date_key DATE,
+  year INT,
+  month INT,
+  day INT
+)
+STORED AS PARQUET;
+
+GOLD FACT TABLE
+Fact_sales
+sale_id,product_id,customer_id,store_id,sale_date,quantity
+CREATE TABLE fact_sales (
+  sale_id INT,
+  customer_id INT,
+  product_id INT,
+  store_id INT,
+  date_key DATE,
+  quantity INT,
+  total_amount INT   —- total_amount= quantity * unit_price
+)
+PARTITIONED BY (date_key)
+STORED AS PARQUET;
+
+PySpark Fact Load
+from pyspark.sql.functions import col
+
+def load_fact_sales(spark):
+    sales = spark.table("silver_sales")
+    products = spark.table("silver_products")
+
+    fact_df = (
+        sales.join(products, "product_id")
+             .withColumn("total_amount", col("quantity") * col("unit_price"))
+             .select(
+                 "sale_id",
+                 "customer_id",
+                 "product_id",
+                 "store_id",
+                 col("sale_date").alias("date_key"),
+                 "quantity",
+                 "total_amount"
+             )
+    )
+
+    (
+        fact_df.write
+        .mode("overwrite")
+        .partitionBy("date_key")
+        .format("parquet")
+        .saveAsTable("fact_sales")
+    )
+
+Example Business Queries (Hive)
+Total Revenue by Product
+SELECT p.product_name, SUM(f.total_amount) AS revenue
+FROM fact_sales f
+JOIN dim_product p ON f.product_id = p.product_id
+GROUP BY p.product_name;
+
+Sales by Store
+SELECT s.store_name, SUM(f.total_amount) AS revenue
+FROM fact_sales f
+JOIN dim_store s ON f.store_id = s.store_id
+GROUP BY s.store_name;
+
+Interview Talking Points
+Why Parquet?
+Columnar, compressed, faster analytics.
+Why Medallion Architecture?
+Separation of concerns, scalability, auditability.
+Why Star Schema in Hive?
+Optimized joins, BI-friendly, fast aggregations.
+Why partition fact by date?
+Most queries are time-based → partition pruning.
+
+
+
+
+
+
+
+Submission
+
+Objective
+You are provided with a reference project using HDFS, Hive, PySpark, and Medallion Architecture. You are allowed to share and reuse common utility code, but you must prove execution by submitting Hive and HDFS evidence.
+
+Mandatory Evidence (Screenshots Required)
+Each student MUST submit screenshots of the following:
+Hive Database & Table Creation
+Screenshot must show:
+SHOW DATABASES;
+USE iphone_analytics;
+SHOW TABLES;
+Evidence must include:
+●	bronze_* tables
+
+●	silver_* tables
+
+●	gold_* / fact_* / dim_* tables
+
+❌ No screenshot → No marks.
+Hive Table Schema Validation
+Screenshot must show:
+DESCRIBE FORMATTED silver_sales;
+DESCRIBE FORMATTED fact_sales;
+
+Must clearly show:
+●	Storage format = Parquet
+
+●	Partition column (sale_date / date_key)
+
+●	Table location in HDFS
+
+HDFS Directory Structure (Medallion Proof)
+Screenshot must show:
+hadoop fs -ls /warehouse/tablespace/managed/hive/
+
+Evidence must include:
+bronze_sales/
+silver_sales/
+fact_sales/
+dim_product/
+
+Partition Verification Screenshot
+Screenshot must show:
+SHOW PARTITIONS silver_sales;
+SHOW PARTITIONS fact_sales;
+
+Confirms:
+●	Partitioned by date
+
+●	Data is actually written correctly
+
+Hive SQL Output (Business Queries)
+Students must run at least 2 analytics queries.
+Example:
+SELECT product_name, SUM(total_amount) 
+FROM fact_sales f
+JOIN dim_product p
+ON f.product_id = p.product_id
+GROUP BY product_name;
+
+Screenshot must show:
+●	Query
+
+●	Output rows
+
+●	Column names
+
+Row Count Validation
+Screenshot must show:
+SELECT COUNT(*) FROM bronze_sales;
+SELECT COUNT(*) FROM silver_sales;
+SELECT COUNT(*) FROM fact_sales;
+
+This proves:
+●	No silent data loss
+
+●	Pipeline integrity
+
+Data Sampling Proof
+Screenshot must show:
+SELECT * FROM silver_sales LIMIT 10;
+SELECT * FROM fact_sales LIMIT 10;
+
+Code Sharing Rules (Very Important)
+Allowed:
+●	Shared GitHub repo for:
+
+○	CSV readers
+
+○	Schema definitions
+
+○	Common Spark utilities
+
+
+________________________________________
+🗂 Recommended Git Repo Structure (Shared)
+common-utils/
+ ├── schemas/
+ ├── spark_utils.py
+ └── constants.py
+
+student-project/
+ ├── bronze/
+ ├── silver/
+ ├── gold/
+ ├── sql/
+ └── README.md
+
+Each student must implement their own logic using shared utilities.
+Grading Rubric (Screenshot-Driven)
+Area	Marks
+Hive tables & schema screenshots	25
+HDFS structure screenshots	20
+Partition proof	15
+SQL output screenshots	20
+Code quality & reuse	10
+Documentation	10
+
+
